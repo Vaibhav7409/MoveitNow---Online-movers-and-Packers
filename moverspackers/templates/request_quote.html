@@ -1,0 +1,110 @@
+{% load static %}
+{% include 'header.html' %}
+
+<header class="container-fluid" style="border: 1px solid yellow;">
+    <img src="{% static 'images/2.jpeg' %}" width="100%" height="600px" class="img-responsive">
+</header>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Request Quote</li>
+    </ol>
+</nav>
+
+<div class="card shadow container mb-5">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">Request Quote</h5>
+        <div class="container-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Mobile No.</label>
+                            <input type="text" name="contact" class="form-control" placeholder="Mobile No.">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Where do you want MoveItNow service?</label>
+                            <input type="text" name="location" class="form-control" placeholder="Where do you want MoveItNow service?">
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Where are you shifting?</label>
+                            <input type="text" name="shiftingloc" class="form-control" placeholder="Where are you shifting?">
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Date of Shifting</label>
+                            <input type="date" name="shiftingdate" class="form-control">
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>What do you want to shift?</label>
+                            <select name="briefitems" class="form-control">
+                                <option value = "">Select</option>
+                                {% for i in services %}
+                                    <option value="{{ i.title }}">{{ i.title }}</option>
+                                {% endfor %}
+                        
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Brief about the items</label>
+                            <textarea name="items" class="form-control" placeholder="Brief about the items" >
+                            </textarea>
+                        </div>         
+                    </div>
+                        <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert('Your Request Has been send. We will contact you soon ');
+    window.location = ('{% url 'request_quote' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong, Please Try Again...');
+</script>
+{% endif %}
+
+</div>
+
+<footer class="bg-dark text-white text-center py-3">
+    <p style="font-size: 50px;"><b>MOVEITNOW</b> - Your Trusted Movers and Packers</p>
+</footer>
